@@ -19,6 +19,6 @@ spec:
       clusterDNS:
       - 172.20.0.10
     flags:
-    - "--node-labels=eks.amazonaws.com/nodegroup-image=${node_image},eks.amazonaws.com/capacityType=${capacity_type},eks.amazonaws.com/nodegroup=${nodegroup_name}"
+    - "--node-labels=eks.amazonaws.com/nodegroup-image=${node_image},eks.amazonaws.com/capacityType=ON_DEMAND"
 
 --//--

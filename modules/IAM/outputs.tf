@@ -29,3 +29,7 @@ output "ng_ecr_policy_attachment" {
 output "ng-instance-profile" {
   value = aws_iam_instance_profile.nodes.arn
 }
+
+output "ng_instance_profile_name" {
+  value = aws_iam_instance_profile.nodes.name
+}

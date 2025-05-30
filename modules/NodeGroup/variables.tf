@@ -89,3 +89,12 @@ variable "eks_image_id" {
 variable "eks_nodes_sg_id" {
   description = "EKS Node Group Security Group ID"
 }
+
+variable "ng_instance_profile_name" {
+  description = "Node Group Instance Profile Name"
+}
+
+variable "node_group_label" {
+  description = "Label for the Node Group"
+  
+}

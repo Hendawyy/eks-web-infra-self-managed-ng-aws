@@ -35,3 +35,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+modules/Keys/eks-self-managed-key.pem

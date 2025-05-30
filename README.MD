@@ -1,19 +1,20 @@
 # 🛠️ AWS EKS Infrastructure Automation (Terraform + Helm)
 
-This project automates the provisioning of a complete **Amazon EKS (Elastic Kubernetes Service)** environment using modular **Terraform**, while leveraging **Helm** to install Kubernetes add-ons. It uses **self-managed EC2 node groups** created via **Launch Templates** with bootstrap scripts to register worker nodes into the EKS cluster.
+This project automates the provisioning of a complete **Amazon EKS (Elastic Kubernetes Service)** environment using modular **Terraform**, while leveraging **Helm** to install Kubernetes add-ons. It uses **self-managed EC2 worker nodes** launched via an **Auto Scaling Group (ASG)** backed by a **Launch Template** with bootstrap scripts to register worker nodes into the EKS cluster.
 
 ---
 
 ## 📐 Architecture Overview
 
 ![Self Managed](Requirements/EKS%20Self%20Managed.jpeg)
+![Screenshot](Requirements/SelfManaged.png)
 📷 The architecture consists of reusable Terraform modules and sets up:
 
 * 🌐 A VPC with public and private subnets across two Availability Zones.
 * 🔐 IAM roles for EKS control plane and EC2 worker nodes.
 * 🛡️ Security groups for EKS control plane, nodes, and ingress traffic.
 * ☸️ EKS cluster control plane configured for private/public access.
-* ⚙️ Self-managed EC2 node group using a Launch Template with a user-data bootstrap script.
+* ⚙️ Self-managed EC2 worker nodes launched via an **Auto Scaling Group (ASG)** using a **Launch Template** with a user-data bootstrap script.
 * 🚪 NGINX Ingress Controller deployed using Helm.
 * 🚀 Automatic deployment of a sample two-tier web application, exposed through the ingress controller.
 
@@ -22,8 +23,8 @@ This project automates the provisioning of a complete **Amazon EKS (Elastic Kube
 ## 🚀 Key Features
 
 * ✅ Provisions a complete EKS environment via modular Terraform code.
-* ⚙️ Uses a self-managed node group instead of AWS-managed node groups for greater control.
-* 📝 Node group is created using a Launch Template:
+* ⚙️ Uses a self-managed node group with an **Auto Scaling Group (ASG)** instead of AWS-managed node groups for greater control.
+* 📝 EC2 instances launched via a **Launch Template** associated with the ASG:
 
   * Includes a **bootstrap script** to automatically join EC2 nodes to the EKS cluster.
   * Customizable EC2 instance types and Amazon Linux 2 AMI.
@@ -47,7 +48,7 @@ This project automates the provisioning of a complete **Amazon EKS (Elastic Kube
 | `IAM`       | Defines IAM roles and policies for EKS and EC2 nodes                             |
 | `SecGrp`    | Sets up security groups for control plane, worker nodes, and ingress access      |
 | `EKS`       | Provisions the EKS control plane with required IAM and networking integrations   |
-| `NodeGroup` | Launches a self-managed EC2 Auto Scaling Group using a Launch Template           |
+| `NodeGroup` | Launches a self-managed **Auto Scaling Group (ASG)** using a **Launch Template** |
 | `Helm`      | Deploys add-ons (Ingress-NGINX, CoreDNS patches) to the cluster                  |
 
 ---
@@ -73,7 +74,7 @@ This project automates the provisioning of a complete **Amazon EKS (Elastic Kube
 4. 🚀 Upon successful deployment:
 
    * The EKS cluster is created.
-   * Self-managed EC2 nodes join the cluster automatically via bootstrap script.
+   * Self-managed EC2 worker nodes launched via the ASG join the cluster automatically via bootstrap script.
    * Helm deploys Ingress-NGINX.
    * A provisioner runs a script to deploy a sample two-tier app and expose it via ingress.
 
@@ -96,7 +97,7 @@ This project automates the provisioning of a complete **Amazon EKS (Elastic Kube
   * `IAM`: Roles and policies
   * `SecGrp`: Security groups
   * `EKS`: Control plane
-  * `NodeGroup`: Managed node groups
+  * `NodeGroup`: Self-managed nodes via **Auto Scaling Group (ASG)** + **Launch Template**
   * `Helm`: Add-on deployment
 
 * **Helm Charts**:
@@ -117,4 +118,3 @@ This project automates the provisioning of a complete **Amazon EKS (Elastic Kube
 ## 🙋‍♂️ Maintained by Seif Hendawy
 
 If you have any questions, feature requests, or need help with deployments, feel free to reach out via [LinkedIn – Seif Hendawy](https://www.linkedin.com/in/seif-hendawy-3995561a8/) 😊
-

@@ -33,3 +33,6 @@ variable "account_id" {
 variable "eks_image_id" {
   description = "EKS Optimized AMI"
 }
+variable "node_group_label" {
+  description = "Label for the Node Group"
+}

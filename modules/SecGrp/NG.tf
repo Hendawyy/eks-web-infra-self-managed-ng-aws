@@ -35,5 +35,6 @@ resource "aws_security_group" "eks_nodes_sg" {
 
   tags = {
     Name = "eks-nodes-sg"
+    # "kubernetes.io/cluster/${var.Cluster_Name}" = "owned"
   }
 }

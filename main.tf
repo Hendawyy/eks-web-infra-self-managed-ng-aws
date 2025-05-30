@@ -66,6 +66,8 @@ module "NodeGroup" {
   eks                                    = module.EKS.eks
   eks_image_id                           = var.eks_image_id
   eks_nodes_sg_id                        = module.SecGrp.eks_nodes_sg_id
+  ng_instance_profile_name               = module.IAM.ng_instance_profile_name
+  node_group_label                       = var.node_group_label
   depends_on                             = [module.EKS]
 }
 
